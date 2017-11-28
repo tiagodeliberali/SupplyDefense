@@ -177,34 +177,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &764873117 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100004, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-  m_PrefabInternal: {fileID: 1080459267}
---- !u!114 &764873122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 764873117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e4be914fc6bdd40bd458e2477a8d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerPriorities: 0900000008000000
-  distanceToBackground: 100
---- !u!114 &764873123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 764873117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77e312031fc987047b3447d014ecdc5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &794197910 stripped
 Transform:
   m_PrefabParentObject: {fileID: 408730, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
@@ -310,41 +282,15 @@ Prefab:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 794197910}
-    - target: {fileID: 11400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_TurnSpeed
-      value: 20
+    - target: {fileID: 114675302776682294, guid: baec086904791744185aaa07a6cf55c2,
+        type: 2}
+      propertyPath: cursorHotspot.x
+      value: 48
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_RollSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_SmoothTurnTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_SpinTurnLimit
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.17364816
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.9848078
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: baec086904791744185aaa07a6cf55c2, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 20
+    - target: {fileID: 114675302776682294, guid: baec086904791744185aaa07a6cf55c2,
+        type: 2}
+      propertyPath: cursorHotspot.y
+      value: 48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: baec086904791744185aaa07a6cf55c2, type: 2}
