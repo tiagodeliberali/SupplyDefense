@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 54313333573591350}
   - component: {fileID: 114288530568907468}
   - component: {fileID: 114445394413405542}
+  - component: {fileID: 114416262703795932}
+  - component: {fileID: 114298010809648368}
   m_Layer: 0
   m_Name: MultipurposeCameraRig
   m_TagString: Untagged
@@ -185,6 +187,34 @@ MonoBehaviour:
   visualiseInEditor: 1
   closestDistance: 0.5
   dontClipTag: Player
+--- !u!114 &114298010809648368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488499525683750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e4be914fc6bdd40bd458e2477a8d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerPriorities: 0900000008000000
+  distanceToBackground: 100
+--- !u!114 &114416262703795932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488499525683750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e312031fc987047b3447d014ecdc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkCursor: {fileID: 2800000, guid: 072c20295686bb641bd814e01536c79c, type: 3}
+  targetCursor: {fileID: 2800000, guid: 54478338250f5614c9a7e011094caa21, type: 3}
+  unknownCursor: {fileID: 2800000, guid: 93c8a2bee68ff6f40a7a30533345b3e9, type: 3}
+  cursorHotspot: {x: 4, y: 4}
 --- !u!114 &114445394413405542
 MonoBehaviour:
   m_ObjectHideFlags: 1
