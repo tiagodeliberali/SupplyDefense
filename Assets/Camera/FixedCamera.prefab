@@ -20,8 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4412610830985196}
   - component: {fileID: 114550043397774796}
+  - component: {fileID: 114422379488252382}
+  - component: {fileID: 114511382471226694}
   m_Layer: 0
-  m_Name: Camera arm
+  m_Name: FixedCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,13 +67,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581426983554892}
-  m_LocalRotation: {x: 0.015821489, y: -0.9835863, z: 0.14313333, w: 0.108722374}
-  m_LocalPosition: {x: -0.7, y: 2.5, z: 8.1}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: -0.2588191, w: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4412610830985196}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.559, y: -167.38501, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 180, z: 0}
 --- !u!20 &20273365136160118
 Camera:
   m_ObjectHideFlags: 1
@@ -114,6 +116,34 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581426983554892}
   m_Enabled: 1
+--- !u!114 &114422379488252382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335433666736750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e312031fc987047b3447d014ecdc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkCursor: {fileID: 2800000, guid: 072c20295686bb641bd814e01536c79c, type: 3}
+  targetCursor: {fileID: 2800000, guid: 54478338250f5614c9a7e011094caa21, type: 3}
+  unknownCursor: {fileID: 2800000, guid: 93c8a2bee68ff6f40a7a30533345b3e9, type: 3}
+  cursorHotspot: {x: 16, y: 16}
+--- !u!114 &114511382471226694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335433666736750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e4be914fc6bdd40bd458e2477a8d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerPriorities: 0900000008000000
+  distanceToBackground: 100
 --- !u!114 &114550043397774796
 MonoBehaviour:
   m_ObjectHideFlags: 1

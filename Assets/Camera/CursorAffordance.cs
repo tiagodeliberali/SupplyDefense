@@ -1,8 +1,7 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CameraRaycaster))]
 public class CursorAffordance : MonoBehaviour {
     [SerializeField] Texture2D walkCursor;
     [SerializeField] Texture2D targetCursor;
