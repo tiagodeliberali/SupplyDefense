@@ -9,3 +9,6 @@ A colaborative game develop to study Unity
 **TIPS FOR INSTALLING VISUAL STUDIO** During the installation, pay atteention to 2 things:
  * Add English language package. The default will be the same as your SO)
  * Add the Unity Development Tools.
+
+## Deploying the game to web
+Check how to do that at https://github.com/tiagodeliberali/SupplyDefenseRelease
