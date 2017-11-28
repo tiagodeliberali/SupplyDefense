@@ -3,21 +3,20 @@ using UnityEngine;
 
 public class CameraRaycaster : MonoBehaviour
 {
-    public Layer[] layerPriorities = { Layer.Enemy, Layer.Walkable };
-
     [SerializeField] float distanceToBackground = 100f;
-    Camera viewCamera;
 
+    public delegate void RaycasterLayerEvent(Layer layer);
+    public event RaycasterLayerEvent OnLayerChanged;
+
+    private Layer[] layerPriorities = { Layer.Enemy, Layer.Walkable };
     private RaycastHit raycastHit;
+    private Layer layerHit;
+    private Layer previousLayerHit;
+    private Camera viewCamera;
+
     public RaycastHit Hit
     {
         get { return raycastHit; }
-    }
-
-    private Layer layerHit;
-    public Layer LayerHit
-    {
-        get { return layerHit;  }
     }
 
     void Start ()
@@ -27,6 +26,9 @@ public class CameraRaycaster : MonoBehaviour
 
     void Update ()
     {
+        raycastHit.distance = distanceToBackground;
+        layerHit = Layer.RaycastEndStop;
+
         foreach (Layer layer in layerPriorities)
         {
             var hit = RaycastForLayer(layer);
@@ -34,14 +36,15 @@ public class CameraRaycaster : MonoBehaviour
             {
                 raycastHit = hit.Value;
                 layerHit = layer;
-                return;
+                break;
             }
         }
 
-        raycastHit.distance = distanceToBackground;
-        layerHit = Layer.RaycastEndStop;
-
-        
+        if (previousLayerHit != layerHit)
+        {
+            previousLayerHit = layerHit;
+            if (OnLayerChanged != null) OnLayerChanged(layerHit);
+        }
 	}
 
     RaycastHit? RaycastForLayer(Layer layer)

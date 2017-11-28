@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
-
+public class CameraFollow : MonoBehaviour
+{
     GameObject player;
 
-	void Start () {
+	void Start ()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
-	void LateUpdate () {
+	void LateUpdate ()
+    {
         transform.position = player.transform.position;
 	}
 }
