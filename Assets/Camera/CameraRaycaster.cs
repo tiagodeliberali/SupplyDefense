@@ -19,6 +19,11 @@ public class CameraRaycaster : MonoBehaviour
         get { return raycastHit; }
     }
 
+    public Layer LayerHit
+    {
+        get { return layerHit; }
+    }
+
     void Start ()
     {
         viewCamera = Camera.main;
