@@ -8,17 +8,11 @@ namespace Assets.Utils
         public event PlayerHealthEvent OnPlayerChangesHealth;
 
         [SerializeField] float maxHitPoints = 100;
-
-        private float currentHitPoints = 0;
+        [SerializeField] float currentHitPoints = 100;
 
         public float HealthAsPercentage
         {
             get { return currentHitPoints / maxHitPoints; }
-        }
-
-        void Start()
-        {
-            currentHitPoints = maxHitPoints;
         }
 
         public void LosesHitPoints(float hitPoints)

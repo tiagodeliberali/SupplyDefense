@@ -13,6 +13,7 @@ public class HealthBar : MonoBehaviour
         player = GetComponentInParent<BasePlayer>();
         healthBarRawImage = GetComponent<RawImage>();
 
+        UpdateHealthBar(player.HealthAsPercentage);
         player.OnPlayerChangesHealth += UpdateHealthBar;
     }
 
