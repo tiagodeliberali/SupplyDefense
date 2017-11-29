@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CameraRaycaster : MonoBehaviour
 {
-    [SerializeField] float distanceToBackground = 100f;
-
     public delegate void RaycasterLayerEvent(Layer layer);
     public event RaycasterLayerEvent OnLayerChanged;
+
+    [SerializeField] float distanceToBackground = 100f;
 
     private Layer[] layerPriorities = { Layer.Enemy, Layer.Walkable };
     private RaycastHit raycastHit;
