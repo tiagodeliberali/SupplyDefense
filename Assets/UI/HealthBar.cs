@@ -1,16 +1,16 @@
-﻿using Assets.Character;
+﻿using Assets.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RawImage))]
-public class PlayerHealthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     RawImage healthBarRawImage;
-    Player player;
+    BasePlayer player;
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = GetComponentInParent<BasePlayer>();
         healthBarRawImage = GetComponent<RawImage>();
 
         player.OnPlayerChangesHealth += UpdateHealthBar;

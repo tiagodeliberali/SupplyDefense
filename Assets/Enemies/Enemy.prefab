@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4014510250654340}
   - component: {fileID: 114801590777585792}
+  - component: {fileID: 114060059967822370}
   m_Layer: 9
   m_Name: UI Socket
   m_TagString: Untagged
@@ -154,6 +155,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114060059967822370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1260659223642296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58efff921aeae974a8b8e8a3333da19e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 15
 --- !u!114 &114801590777585792
 MonoBehaviour:
   m_ObjectHideFlags: 1
