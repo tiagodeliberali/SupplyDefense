@@ -142,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e4be914fc6bdd40bd458e2477a8d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerPriorities: 0900000008000000
   distanceToBackground: 100
 --- !u!114 &114550043397774796
 MonoBehaviour:
