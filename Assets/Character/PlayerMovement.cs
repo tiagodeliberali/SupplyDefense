@@ -19,15 +19,33 @@ public class PlayerMovement : MonoBehaviour
         cameraRaycaster = Camera.main.GetComponentInParent<CameraRaycaster>();
         thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
         currentDestination = transform.position;
+
+        cameraRaycaster.OnLayerClick += ProcessMouseMovement;
     }
 
-    // Fixed update is called in sync with physics
+    private void ProcessMouseMovement(RaycastHit raycastHit, int layer)
+    {
+        clickPoint = raycastHit.point;
+        switch (layer)
+        {
+            case (int)Layer.Walkable:
+                currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
+                break;
+            case (int)Layer.Enemy:
+                currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
+                break;
+            default:
+                print("Unexpected layer found");
+                return;
+        }
+    }
+
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.G)) // G for gamepad. TODO add to menu
+        if (Input.GetKeyDown(KeyCode.G)) // G for gamepad
         {
-            isInDirectMode = !isInDirectMode; // toggle mode
-            currentDestination = transform.position; // clear the click target
+            isInDirectMode = !isInDirectMode;
+            currentDestination = transform.position;
         }
 
         if (isInDirectMode)
@@ -36,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            ProcessMouseMovement();
+            WalkToDestination();
         }
     }
 
@@ -52,31 +70,10 @@ public class PlayerMovement : MonoBehaviour
         thirdPersonCharacter.Move(movement, false, false);
     }
 
-    private void ProcessMouseMovement()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            clickPoint = cameraRaycaster.Hit.point;
-            switch (cameraRaycaster.LayerHit)
-            {
-                case Layer.Walkable:
-                    currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
-                    break;
-                case Layer.Enemy:
-                    currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
-                    break;
-                default:
-                    print("Unexpected layer found");
-                    return;
-            }
-        }
-        WalkToDestination();
-    }
-
     private void WalkToDestination()
     {
         var playerToClickPoint = currentDestination - transform.position;
-        if (playerToClickPoint.magnitude >= 0)
+        if (playerToClickPoint.magnitude >= 0.5f)
         {
             thirdPersonCharacter.Move(playerToClickPoint, false, false);
         }

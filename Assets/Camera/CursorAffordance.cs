@@ -15,20 +15,19 @@ public class CursorAffordance : MonoBehaviour {
         cameraRaycaster.OnLayerChanged += UpdateCursor;
     }
 
-    private void UpdateCursor(Layer layer)
+    private void UpdateCursor(int layer)
     {
         switch (layer)
         {
-            case Layer.Walkable:
+            case (int)Layer.Walkable:
                 Cursor.SetCursor(walkCursor, cursorHotspot, CursorMode.Auto);
                 break;
-            case Layer.Enemy:
+            case (int)Layer.Enemy:
                 Cursor.SetCursor(targetCursor, cursorHotspot, CursorMode.Auto);
                 break;
-            case Layer.RaycastEndStop:
-                Cursor.SetCursor(unknownCursor, cursorHotspot, CursorMode.Auto);
-                break;
+            case (int)Layer.RaycastEndStop:
             default:
+                Cursor.SetCursor(unknownCursor, cursorHotspot, CursorMode.Auto);
                 break;
         }
     }
