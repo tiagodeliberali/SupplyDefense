@@ -5,12 +5,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RawImage))]
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField] GameObject playerReference;
+
     RawImage healthBarRawImage;
     BasePlayer player;
 
     void Start()
     {
-        player = GetComponentInParent<BasePlayer>();
+        player = playerReference != null 
+            ? playerReference.GetComponent<BasePlayer>() 
+            : GetComponentInParent<BasePlayer>();
+
         healthBarRawImage = GetComponent<RawImage>();
 
         UpdateHealthBar(player.HealthAsPercentage);
