@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
                 currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
                 break;
             case (int)Layer.Enemy:
+            case (int)Layer.House:
                 currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
                 break;
             default:

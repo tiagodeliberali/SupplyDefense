@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +13,7 @@ public class CameraRaycaster : MonoBehaviour
     public event RaycasterClickEvent OnLayerClick;
 
     private float maxRaycastDepth = 100f;
-    private Layer[] layerPriorities = { Layer.Enemy, Layer.Walkable };
+    private Layer[] layerPriorities = { Layer.Enemy, Layer.House, Layer.Walkable };
     
     private int previousLayerHit;
 
@@ -33,7 +33,7 @@ public class CameraRaycaster : MonoBehaviour
             return;
         }
 
-        int layer = priorityHit.Value.collider.gameObject.layer;
+        int layer = getLayer(priorityHit.Value);
         NotifyOnLayerChanged(layer);
 
         if (Input.GetMouseButton(0))
@@ -57,15 +57,23 @@ public class CameraRaycaster : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] raycastHits = Physics.RaycastAll(ray, maxRaycastDepth);
 
-        return FindHighPriorityHit(raycastHits);
+        return FindHighPriorityHit(raycastHits).FirstOrDefault();
     }
 
-    private RaycastHit? FindHighPriorityHit(RaycastHit[] raycastHits)
+    private List<RaycastHit> FindHighPriorityHit(RaycastHit[] raycastHits)
     {
-        Dictionary<int, RaycastHit> raycastHitLayers = new Dictionary<int, RaycastHit>();
+        Dictionary<int, List<RaycastHit>> raycastHitLayers = new Dictionary<int, List<RaycastHit>>();
 
         for (int i = 0; i < raycastHits.Length; i++)
-            raycastHitLayers.Add(raycastHits[i].collider.gameObject.layer, raycastHits[i]);
+        {
+            int layer = getLayer(raycastHits[i]);
+
+            if (!raycastHitLayers.ContainsKey(layer))
+                raycastHitLayers.Add(layer, new List<RaycastHit>() { raycastHits[i] });
+            else
+                raycastHitLayers[layer].Add(raycastHits[i]);
+        }
+            
 
         foreach (int layer in layerPriorities)
         {
@@ -73,6 +81,14 @@ public class CameraRaycaster : MonoBehaviour
                 return raycastHitLayers[layer];
         }
 
-        return null;
+        return new List<RaycastHit>();
+    }
+
+    private int getLayer(RaycastHit hit)
+    {
+        if (hit.collider != null && hit.collider.gameObject != null)
+            return hit.collider.gameObject.layer;
+
+        return (int)Layer.RaycastEndStop;
     }
 }

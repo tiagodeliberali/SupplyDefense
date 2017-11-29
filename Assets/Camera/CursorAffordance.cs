@@ -23,6 +23,7 @@ public class CursorAffordance : MonoBehaviour {
                 Cursor.SetCursor(walkCursor, cursorHotspot, CursorMode.Auto);
                 break;
             case (int)Layer.Enemy:
+            case (int)Layer.House:
                 Cursor.SetCursor(targetCursor, cursorHotspot, CursorMode.Auto);
                 break;
             case (int)Layer.RaycastEndStop:
