@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public class BasePlayer : MonoBehaviour
+    public class BasePlayer : MonoBehaviour, IDamageable
     {
         public delegate void PlayerHealthEvent(float healthAsPercentage);
         public event PlayerHealthEvent OnPlayerChangesHealth;
@@ -15,9 +15,9 @@ namespace Assets.Utils
             get { return currentHitPoints / maxHitPoints; }
         }
 
-        public void LosesHitPoints(float hitPoints)
+        public void TakeDamage(float damage)
         {
-            currentHitPoints -= hitPoints;
+            currentHitPoints = Mathf.Clamp(currentHitPoints - damage, 0f, maxHitPoints);
 
             if (OnPlayerChangesHealth != null) OnPlayerChangesHealth(HealthAsPercentage);
         }
