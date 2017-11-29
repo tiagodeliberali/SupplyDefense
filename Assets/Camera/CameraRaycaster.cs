@@ -1,28 +1,21 @@
 ﻿using Assets.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraRaycaster : MonoBehaviour
 {
     public delegate void RaycasterLayerEvent(Layer layer);
     public event RaycasterLayerEvent OnLayerChanged;
 
-    [SerializeField] float distanceToBackground = 100f;
+    public delegate void RaycasterClickEvent(RaycastHit raycastHit, Layer layer);
+    public event RaycasterClickEvent OnLayerClick;
 
+    private float maxRaycastDepth = 100f;
     private Layer[] layerPriorities = { Layer.Enemy, Layer.Walkable };
     private RaycastHit raycastHit;
     private Layer layerHit;
     private Layer previousLayerHit;
     private Camera viewCamera;
-
-    public RaycastHit Hit
-    {
-        get { return raycastHit; }
-    }
-
-    public Layer LayerHit
-    {
-        get { return layerHit; }
-    }
 
     void Start ()
     {
@@ -31,17 +24,24 @@ public class CameraRaycaster : MonoBehaviour
 
     void Update ()
     {
-        raycastHit.distance = distanceToBackground;
-        layerHit = Layer.RaycastEndStop;
-
-        foreach (Layer layer in layerPriorities)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            var hit = RaycastForLayer(layer);
-            if(hit.HasValue)
+            layerHit = Layer.UI;
+        }
+        else
+        {
+            raycastHit.distance = maxRaycastDepth;
+            layerHit = Layer.RaycastEndStop;
+
+            foreach (Layer layer in layerPriorities)
             {
-                raycastHit = hit.Value;
-                layerHit = layer;
-                break;
+                var hit = RaycastForLayer(layer);
+                if (hit.HasValue)
+                {
+                    raycastHit = hit.Value;
+                    layerHit = layer;
+                    break;
+                }
             }
         }
 
@@ -58,7 +58,7 @@ public class CameraRaycaster : MonoBehaviour
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
-        bool hasHit = Physics.Raycast(ray, out hit, distanceToBackground, layerMask);
+        bool hasHit = Physics.Raycast(ray, out hit, maxRaycastDepth, layerMask);
 
         if (hasHit)
         {
