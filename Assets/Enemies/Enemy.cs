@@ -11,6 +11,8 @@ namespace Assets.Enemies
         [SerializeField] float attackDistance = 4f;
         [SerializeField] float meleeDamage = 2f;
 
+        System.Random random;
+
         GameObject player;
         GameObject house;
         AICharacterControl ai;
@@ -18,6 +20,8 @@ namespace Assets.Enemies
 
         private void Start()
         {
+            random = new System.Random();
+
             player = GameObject.FindGameObjectWithTag("Player");
             house = SelectHouse();
             ai = GetComponentInChildren<AICharacterControl>();
@@ -49,7 +53,8 @@ namespace Assets.Enemies
 
             var damageable = collider.gameObject.GetComponentInParent<IDamageable>();
 
-            if (damageable != null && hitLayer == (int)Layer.Player)
+            if (damageable != null && 
+                (hitLayer == (int)Layer.Player || hitLayer == (int)Layer.House))
             {
                 damageable.TakeDamage(meleeDamage);
             }
@@ -57,7 +62,12 @@ namespace Assets.Enemies
 
         private GameObject SelectHouse()
         {
-            return GameObject.FindGameObjectsWithTag("House").FirstOrDefault();
+            var houses = GameObject.FindGameObjectsWithTag("House");
+
+            if (houses.Length > 0)
+                return houses[random.Next(0, houses.Length - 1)];
+
+            return null;
         }
     }
 }
