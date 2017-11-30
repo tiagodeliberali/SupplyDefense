@@ -10,6 +10,7 @@ namespace Assets.Enemies
     {
         [SerializeField] float attackDistance = 4f;
         [SerializeField] float meleeDamage = 2f;
+        [SerializeField] float hitDelay = 0.5f;
 
         System.Random random;
 
@@ -17,6 +18,7 @@ namespace Assets.Enemies
         GameObject house;
         AICharacterControl ai;
         Rigidbody rb;
+        float nextHitAllowed;
 
         private void Start()
         {
@@ -64,9 +66,11 @@ namespace Assets.Enemies
             var damageable = collider.gameObject.GetComponentInParent<IDamageable>();
 
             if (damageable != null && 
+                Time.time > nextHitAllowed &&
                 (hitLayer == (int)Layer.Player || hitLayer == (int)Layer.House))
             {
                 damageable.TakeDamage(meleeDamage);
+                nextHitAllowed = Time.time + hitDelay;
             }
         }
 
