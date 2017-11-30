@@ -26,5 +26,8 @@ public class HealthBar : MonoBehaviour
     {
         float xValue = -(healthAsPercentage / 2f) - 0.5f;
         healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
+
+        if (healthAsPercentage == 0f)
+            Destroy(player.gameObject);
     }
 }

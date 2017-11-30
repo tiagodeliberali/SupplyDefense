@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using System;
+using Assets.Utils;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -7,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float walkMoveStopRadius = 0.2f;
     [SerializeField] float attackMoveStopRadius = 5f;
+
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] GameObject projectileSocket;
 
     ThirdPersonCharacter thirdPersonCharacter;   // A reference to the ThirdPersonCharacter on the object
     CameraRaycaster cameraRaycaster;
@@ -32,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
                 currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
                 break;
             case (int)Layer.Enemy:
+                SpawnProjectile(clickPoint);
+                break;
             case (int)Layer.House:
                 currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
                 break;
@@ -39,6 +45,19 @@ public class PlayerMovement : MonoBehaviour
                 print("Unexpected layer found");
                 return;
         }
+    }
+
+    private void SpawnProjectile(Vector3 enemyPosition)
+    {
+        GameObject shoot = Instantiate(projectilePrefab);
+        shoot.transform.position = projectileSocket.transform.position;
+
+        Projectile projectile = shoot.GetComponent<Projectile>();
+        projectile.originLayer = gameObject.layer;
+
+        Rigidbody rb = shoot.GetComponent<Rigidbody>();
+
+        rb.velocity = (enemyPosition - projectileSocket.transform.position) * 4f;
     }
 
     private void FixedUpdate()
