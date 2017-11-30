@@ -15,11 +15,8 @@ namespace Assets.Utils
             get { return currentHealthPoints / maxHealthPoints; }
         }
 
-        public void TakeDamage(float damage, int layer)
+        public void TakeDamage(float damage)
         {
-            if (gameObject.layer == layer) // avoid self inflicting damage
-                return;
-
             currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
 
             if (OnPlayerChangesHealth != null) OnPlayerChangesHealth(HealthAsPercentage);

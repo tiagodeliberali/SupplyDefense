@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         shoot.transform.position = projectileSocket.transform.position;
 
         Projectile projectile = shoot.GetComponent<Projectile>();
-        projectile.originLayer = gameObject.layer;
+        projectile.SetOriginLayer(gameObject.layer);
 
         Rigidbody rb = shoot.GetComponent<Rigidbody>();
 
