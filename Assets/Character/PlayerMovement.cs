@@ -5,19 +5,17 @@ using UnityStandardAssets.Characters.ThirdPerson;
 [RequireComponent(typeof(ThirdPersonCharacter))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float walkMoveStopRadius = 0.2f;
-    [SerializeField] float attackMoveStopRadius = 5f;
-
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject projectileSocket;
+    [SerializeField] float hitDelay = 0.5f;
 
     ThirdPersonCharacter thirdPersonCharacter;
     CameraRaycaster cameraRaycaster;
-    Vector3 currentDestination;
     Vector3 aimOffset = new Vector3(0f, 0.5f, 0f);
 
     AICharacterControl ai;
     GameObject walkTarget;
+    float nextHitAllowed;
 
     bool isInDirectMode = false;
 
@@ -26,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
         cameraRaycaster = Camera.main.GetComponentInParent<CameraRaycaster>();
         thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
         ai = GetComponent<AICharacterControl>();
-        currentDestination = transform.position;
         walkTarget = new GameObject("walkTarget");
 
         cameraRaycaster.OnRigthButtonClick += ProcessMouseMovement;
@@ -63,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpawnProjectile(Vector3 enemyPosition)
     {
+        if (Time.time < nextHitAllowed)
+            return;
+
+        nextHitAllowed = Time.time + hitDelay;
+
         GameObject shoot = Instantiate(projectilePrefab);
         shoot.transform.position = projectileSocket.transform.position;
 
