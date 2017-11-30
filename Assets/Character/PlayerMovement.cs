@@ -16,13 +16,18 @@ public class PlayerMovement : MonoBehaviour
     CameraRaycaster cameraRaycaster;
     Vector3 currentDestination, clickPoint;
 
+    AICharacterControl ai;
+    GameObject walkTarget;
+
     bool isInDirectMode = false;
 
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponentInParent<CameraRaycaster>();
         thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
+        ai = GetComponent<AICharacterControl>();
         currentDestination = transform.position;
+        walkTarget = new GameObject("walkTarget");
 
         cameraRaycaster.OnLayerClick += ProcessMouseMovement;
     }
@@ -33,13 +38,19 @@ public class PlayerMovement : MonoBehaviour
         switch (layer)
         {
             case (int)Layer.Walkable:
-                currentDestination = ShortDestination(clickPoint, walkMoveStopRadius);
+                walkTarget.transform.position = raycastHit.point;
+                ai.SetTarget(walkTarget.transform);
                 break;
+
             case (int)Layer.Enemy:
-                SpawnProjectile(clickPoint);
+                GameObject enemy = raycastHit.collider.gameObject;
+                ai.SetTarget(enemy.transform);
+
+                SpawnProjectile(enemy.transform.position);
                 break;
+
             case (int)Layer.House:
-                currentDestination = ShortDestination(clickPoint, attackMoveStopRadius);
+                
                 break;
             default:
                 print("Unexpected layer found");
@@ -60,24 +71,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = (enemyPosition - projectileSocket.transform.position) * 4f;
     }
 
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.G)) // G for gamepad
-        {
-            isInDirectMode = !isInDirectMode;
-            currentDestination = transform.position;
-        }
-
-        if (isInDirectMode)
-        {
-            ProcessDirectMovement();
-        }
-        else
-        {
-            WalkToDestination();
-        }
-    }
-
     private void ProcessDirectMovement()
     {
         float h = Input.GetAxis("Horizontal");
@@ -88,37 +81,5 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = v * cameraForward + h * Camera.main.transform.right;
 
         thirdPersonCharacter.Move(movement, false, false);
-    }
-
-    private void WalkToDestination()
-    {
-        var playerToClickPoint = currentDestination - transform.position;
-        if (playerToClickPoint.magnitude >= 0.5f)
-        {
-            thirdPersonCharacter.Move(playerToClickPoint, false, false);
-        }
-        else
-        {
-            thirdPersonCharacter.Move(Vector3.zero, false, false);
-        }
-    }
-
-    Vector3 ShortDestination(Vector3 destination, float shortening)
-    {
-        Vector3 reductionVector = (destination - transform.position).normalized * shortening;
-        return destination - reductionVector;
-    }
-
-    void OnDrawGizmos()
-    {
-        // Draw movement gizmos
-        Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, clickPoint);
-        Gizmos.DrawSphere(currentDestination, 0.15f);
-        Gizmos.DrawSphere(clickPoint, 0.1f);
-
-        // Draw attack sphere
-        Gizmos.color = new Color(255f, 0f, 0, .5f);
-        Gizmos.DrawWireSphere(transform.position, attackMoveStopRadius);
     }
 }
