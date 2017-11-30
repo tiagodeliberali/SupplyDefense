@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     ThirdPersonCharacter thirdPersonCharacter;
     CameraRaycaster cameraRaycaster;
     Vector3 currentDestination;
+    Vector3 aimOffset = new Vector3(0f, 0.5f, 0f);
 
     AICharacterControl ai;
     GameObject walkTarget;
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
         Rigidbody rb = shoot.GetComponent<Rigidbody>();
 
-        rb.velocity = (enemyPosition - projectileSocket.transform.position) * 4f;
+        rb.velocity = (enemyPosition + aimOffset - projectileSocket.transform.position) * 4f;
     }
 
     private void ProcessDirectMovement()
