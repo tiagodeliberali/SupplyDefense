@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114352185840439852}
   - component: {fileID: 114299979998413088}
   m_Layer: 0
-  m_Name: Enemy Canvas
+  m_Name: HealthBar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94587b07b71f154f861d927f993fe9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerReference: {fileID: 0}
 --- !u!222 &222792390737962702
 CanvasRenderer:
   m_ObjectHideFlags: 1

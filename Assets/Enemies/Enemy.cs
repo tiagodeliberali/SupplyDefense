@@ -30,6 +30,12 @@ namespace Assets.Enemies
 
         private void Update()
         {
+            if (player == null)
+            {
+                ai.SetTarget(transform);
+                return;
+            }
+
             float distanceToPlayer = Vector3.Distance(player.transform.position, rb.transform.position);
 
             if (house == null)
@@ -41,9 +47,13 @@ namespace Assets.Enemies
             {
                 ai.SetTarget(player.transform);
             }
-            else
+            else if (house != null)
             {
                 ai.SetTarget(house.transform);
+            }
+            else
+            {
+                ai.SetTarget(player.transform);
             }
         }
 
