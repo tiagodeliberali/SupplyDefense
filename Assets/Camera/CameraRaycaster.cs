@@ -10,7 +10,9 @@ public class CameraRaycaster : MonoBehaviour
     public event RaycasterLayerEvent OnLayerChanged;
 
     public delegate void RaycasterClickEvent(RaycastHit raycastHit, int layer);
-    public event RaycasterClickEvent OnLayerClick;
+    public event RaycasterClickEvent OnLeftButtonClick;
+    public event RaycasterClickEvent OnRigthButtonClick;
+    public event RaycasterClickEvent OnMiddleButtonClick;
 
     private float maxRaycastDepth = 100f;
     private Layer[] layerPriorities = { Layer.Enemy, Layer.House, Layer.Walkable };
@@ -38,9 +40,18 @@ public class CameraRaycaster : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (OnLayerClick != null) OnLayerClick(priorityHit.Value, layer);
+            if (OnLeftButtonClick != null) OnLeftButtonClick(priorityHit.Value, layer);
         }
 
+        if (Input.GetMouseButton(1))
+        {
+            if (OnRigthButtonClick != null) OnRigthButtonClick(priorityHit.Value, layer);
+        }
+
+        if (Input.GetMouseButton(2))
+        {
+            if (OnMiddleButtonClick != null) OnMiddleButtonClick(priorityHit.Value, layer);
+        }
     }
 
     private void NotifyOnLayerChanged(int newLayer)

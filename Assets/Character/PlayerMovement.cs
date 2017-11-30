@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Utils;
+﻿using Assets.Utils;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
@@ -12,9 +11,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject projectileSocket;
 
-    ThirdPersonCharacter thirdPersonCharacter;   // A reference to the ThirdPersonCharacter on the object
+    ThirdPersonCharacter thirdPersonCharacter;
     CameraRaycaster cameraRaycaster;
-    Vector3 currentDestination, clickPoint;
+    Vector3 currentDestination;
 
     AICharacterControl ai;
     GameObject walkTarget;
@@ -29,12 +28,12 @@ public class PlayerMovement : MonoBehaviour
         currentDestination = transform.position;
         walkTarget = new GameObject("walkTarget");
 
-        cameraRaycaster.OnLayerClick += ProcessMouseMovement;
+        cameraRaycaster.OnRigthButtonClick += ProcessMouseMovement;
+        cameraRaycaster.OnLeftButtonClick += ProcessMouseAttack;
     }
 
     private void ProcessMouseMovement(RaycastHit raycastHit, int layer)
     {
-        clickPoint = raycastHit.point;
         switch (layer)
         {
             case (int)Layer.Walkable:
@@ -45,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
             case (int)Layer.Enemy:
                 GameObject enemy = raycastHit.collider.gameObject;
                 ai.SetTarget(enemy.transform);
-
-                SpawnProjectile(enemy.transform.position);
                 break;
 
             case (int)Layer.House:
@@ -56,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
                 print("Unexpected layer found");
                 return;
         }
+    }
+
+    private void ProcessMouseAttack(RaycastHit raycastHit, int layer)
+    {
+        SpawnProjectile(raycastHit.point);
     }
 
     private void SpawnProjectile(Vector3 enemyPosition)
