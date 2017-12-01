@@ -3887,11 +3887,6 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -0.11041513
       objectReference: {fileID: 0}
-    - target: {fileID: 114061676234023492, guid: 82e9e35907bdcd843904c5be3f415b6a,
-        type: 2}
-      propertyPath: shootDistance
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82e9e35907bdcd843904c5be3f415b6a, type: 2}
   m_IsPrefabParent: 0
