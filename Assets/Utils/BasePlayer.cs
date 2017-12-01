@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public class BasePlayer : MonoBehaviour, IDamageable
+    public abstract class BasePlayer : MonoBehaviour, IDamageable
     {
         public delegate void PlayerHealthEvent(float healthAsPercentage);
         public event PlayerHealthEvent OnPlayerChangesHealth;
@@ -28,5 +28,7 @@ namespace Assets.Utils
 
             if (OnPlayerChangesHealth != null) OnPlayerChangesHealth(HealthAsPercentage);
         }
+
+        public abstract void Die();
     }
 }

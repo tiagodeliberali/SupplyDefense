@@ -19,6 +19,7 @@ namespace Assets.Enemies
         AICharacterControl ai;
         Rigidbody rb;
         float nextHitAllowed;
+        UIInfo uiInfo;
 
         private void Start()
         {
@@ -28,6 +29,9 @@ namespace Assets.Enemies
             house = SelectHouse();
             ai = GetComponentInChildren<AICharacterControl>();
             rb = GetComponentInChildren<Rigidbody>();
+
+            uiInfo = GameObject.FindGameObjectWithTag("UIInfo").GetComponent<UIInfo>();
+            uiInfo.AddEnemies(1);
         }
 
         private void Update()
@@ -82,6 +86,11 @@ namespace Assets.Enemies
                 return houses[random.Next(0, houses.Length - 1)];
 
             return null;
+        }
+
+        public override void Die()
+        {
+            uiInfo.RemoveEnemies(1);
         }
     }
 }

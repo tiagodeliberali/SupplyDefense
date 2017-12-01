@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpawnProjectile(GameObject enemy)
     {
-        if (Time.time < nextHitAllowed)
+        if (Time.time < nextHitAllowed || enemy == null || projectileSocket == null)
             return;
 
         nextHitAllowed = Time.time + hitDelay;

@@ -28,6 +28,9 @@ public class HealthBar : MonoBehaviour
         healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
 
         if (healthAsPercentage == 0f)
+        {
+            player.Die();
             Destroy(player.gameObject);
+        }
     }
 }
