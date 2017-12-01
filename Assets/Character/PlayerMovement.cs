@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject projectileSocket;
+    [SerializeField] float shootDistance = 5f;
     [SerializeField] float hitDelay = 0.5f;
 
-    ThirdPersonCharacter thirdPersonCharacter;
     CameraRaycaster cameraRaycaster;
     Vector3 aimOffset = new Vector3(0f, 0.5f, 0f);
 
@@ -17,16 +17,31 @@ public class PlayerMovement : MonoBehaviour
     GameObject walkTarget;
     float nextHitAllowed;
 
-    bool isInDirectMode = false;
+    GameObject enemyTarget;
 
     private void Start()
     {
         cameraRaycaster = Camera.main.GetComponentInParent<CameraRaycaster>();
-        thirdPersonCharacter = GetComponent<ThirdPersonCharacter>();
         ai = GetComponent<AICharacterControl>();
         walkTarget = new GameObject("walkTarget");
 
         cameraRaycaster.OnLeftButtonClick += ProcessMouseMovement;
+    }
+
+    private void Update()
+    {
+        if (enemyTarget != null)
+        {
+            if (Vector3.Distance(transform.position, enemyTarget.transform.position) > shootDistance)
+            {
+                ai.SetTarget(enemyTarget.transform);
+            }
+            else
+            {
+                ai.SetTarget(transform);
+                SpawnProjectile(enemyTarget);
+            }
+        }
     }
 
     private void ProcessMouseMovement(RaycastHit raycastHit, int layer)
@@ -34,17 +49,18 @@ public class PlayerMovement : MonoBehaviour
         switch (layer)
         {
             case (int)Layer.Walkable:
+                enemyTarget = null;
                 walkTarget.transform.position = raycastHit.point;
                 ai.SetTarget(walkTarget.transform);
                 break;
 
             case (int)Layer.Enemy:
                 GameObject enemy = raycastHit.collider.gameObject;
-                SpawnProjectile(enemy);
+                enemyTarget = enemy;
                 break;
 
             case (int)Layer.House:
-                
+                enemyTarget = null;
                 break;
             default:
                 print("Unexpected layer found");
@@ -70,17 +86,5 @@ public class PlayerMovement : MonoBehaviour
         Projectile projectile = shoot.GetComponent<Projectile>();
         projectile.SetOriginLayer(gameObject.layer);
         projectile.SetTarget(enemy);
-    }
-
-    private void ProcessDirectMovement()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        // calculate camera relative direction to move:
-        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 movement = v * cameraForward + h * Camera.main.transform.right;
-
-        thirdPersonCharacter.Move(movement, false, false);
     }
 }

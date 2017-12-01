@@ -2531,6 +2531,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1416849995196396, guid: 8e495d48b5165da49938000e798fe556,
     type: 2}
   projectileSocket: {fileID: 1085065111326180}
+  shootDistance: 5
   hitDelay: 0.5
 --- !u!114 &114186052249219382
 MonoBehaviour:
