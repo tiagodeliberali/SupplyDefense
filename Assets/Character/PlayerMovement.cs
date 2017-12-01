@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
         ai = GetComponent<AICharacterControl>();
         walkTarget = new GameObject("walkTarget");
 
-        cameraRaycaster.OnRigthButtonClick += ProcessMouseMovement;
-        cameraRaycaster.OnLeftButtonClick += ProcessMouseAttack;
+        cameraRaycaster.OnLeftButtonClick += ProcessMouseMovement;
     }
 
     private void ProcessMouseMovement(RaycastHit raycastHit, int layer)
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
             case (int)Layer.Enemy:
                 GameObject enemy = raycastHit.collider.gameObject;
-                ai.SetTarget(enemy.transform);
+                SpawnProjectile(enemy);
                 break;
 
             case (int)Layer.House:
@@ -55,10 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessMouseAttack(RaycastHit raycastHit, int layer)
     {
-        SpawnProjectile(raycastHit.point);
+        // TODO Add mellee atack/magick attack
     }
 
-    private void SpawnProjectile(Vector3 enemyPosition)
+    private void SpawnProjectile(GameObject enemy)
     {
         if (Time.time < nextHitAllowed)
             return;
@@ -70,10 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
         Projectile projectile = shoot.GetComponent<Projectile>();
         projectile.SetOriginLayer(gameObject.layer);
-
-        Rigidbody rb = shoot.GetComponent<Rigidbody>();
-
-        rb.velocity = (enemyPosition + aimOffset - projectileSocket.transform.position) * 4f;
+        projectile.SetTarget(enemy);
     }
 
     private void ProcessDirectMovement()
