@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIInfo : MonoBehaviour
@@ -23,15 +24,23 @@ public class UIInfo : MonoBehaviour
 
     private bool isGameOver = false;
 
+    private void Update()
+    {
+        if (isGameOver && Input.GetKeyDown(KeyCode.G))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
     private void UpdateUIText()
     {
         UIText.text = string.Format("Total houses: {0}/{1}\nTotal enemies: {2}/{3}", currentHouses, totalHouses, currentEnemies, totalEnemies);
 
         if (isGameOver)
-            UIText.text += "\nGame Over!";
+            UIText.text += "\nGame Over! Press G to start";
     }
 
-    internal void PlayerDied()
+    public void PlayerDied()
     {
         isGameOver = true;
         UpdateUIText();
@@ -55,13 +64,21 @@ public class UIInfo : MonoBehaviour
 
     public void RemoveHouses(int houses)
     {
-        currentHouses -= houses; ;
+        currentHouses = Mathf.Clamp(currentHouses - houses, 0, totalHouses);
+
+        if (currentHouses == 0)
+            isGameOver = true;
+
         UpdateUIText();
     }
 
     public void RemoveEnemies(int enemies)
     {
-        currentEnemies -= enemies; ;
+        currentEnemies = Mathf.Clamp(currentEnemies - enemies, 0, totalEnemies);
+
+        if (currentEnemies == 0)
+            isGameOver = true;
+
         UpdateUIText();
     }
 }

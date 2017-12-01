@@ -1177,6 +1177,36 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -272
       objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114951094027350426, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75a43cca039264395b99698681e52275, type: 2}
   m_IsPrefabParent: 0
