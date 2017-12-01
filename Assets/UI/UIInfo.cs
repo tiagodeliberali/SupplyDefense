@@ -6,6 +6,15 @@ public class UIInfo : MonoBehaviour
 {
     private Text uiText;
 
+    private Text UIText {
+        get {
+            if (uiText == null)
+                uiText = GetComponentInChildren<Text>();
+
+            return uiText;
+        }
+    }
+
     private int totalEnemies;
     private int currentEnemies;
 
@@ -14,19 +23,12 @@ public class UIInfo : MonoBehaviour
 
     private bool isGameOver = false;
 
-    void Start ()
-    {
-        uiText = GetComponentInChildren<Text>();
-
-        UpdateUIText();
-    }
-
     private void UpdateUIText()
     {
-        uiText.text = string.Format("Total houses: {0}/{1}\nTotal enemies: {2}/{3}", currentHouses, totalHouses, currentEnemies, totalEnemies);
+        UIText.text = string.Format("Total houses: {0}/{1}\nTotal enemies: {2}/{3}", currentHouses, totalHouses, currentEnemies, totalEnemies);
 
         if (isGameOver)
-            uiText.text += "\nGame Over!";
+            UIText.text += "\nGame Over!";
     }
 
     internal void PlayerDied()
